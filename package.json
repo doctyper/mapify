@@ -1,6 +1,6 @@
 {
     "name": "mapify",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "Alias mappings for browserify ",
     "main": "index.js",
     "scripts": {

@@ -29,5 +29,5 @@ Entry point for the alias.
 #### `pattern`
 Glob pattern.
 
-#### `expose` (optional)
+#### `expose`
 Name of the alias.

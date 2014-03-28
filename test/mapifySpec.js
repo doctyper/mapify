@@ -1,0 +1,46 @@
+'use strict';
+var path = require('path'),
+    referee = require('referee'),
+    refereeSinon = require('referee-sinon'),
+    proxyquire = require('proxyquire'),
+    sinon = require('sinon'),
+    expect;
+
+refereeSinon(referee, sinon);
+expect = require('referee/lib/expect').bind(referee);
+
+describe('mapify', function () {
+    var mapify, browserify, glob;
+
+    before(function () {
+        glob = sinon.stub();
+        mapify = proxyquire('../index', {glob: glob});
+    });
+
+
+    beforeEach(function () {
+        sinon.stub(path, 'resolve', function (file) { return file; });
+        browserify = {
+            require: sinon.stub()
+        };
+        glob.yields(null, [
+            'foo/bar/baz.js',
+            'foo/bar/qux/quux.js',
+            'bar/foo/quux.js'
+        ]);
+    });
+
+    afterEach(function () {
+        path.resolve.restore();
+    });
+
+    it('should expose the configured aliases', function () {
+        mapify(browserify, {cwd: 'foo/bar', pattern: '**/*.js', expose: 'exposed'});
+
+        expect(browserify.require).toHaveBeenCalledTwice();
+        expect(path.resolve).toHaveBeenCalledTwice();
+        expect(browserify.require).toHaveBeenCalledWithExactly('foo/bar/baz.js', {expose: 'exposed/baz'});
+        expect(browserify.require).toHaveBeenCalledWithExactly('foo/bar/qux/quux.js', {expose: 'exposed/qux/quux'});
+    });
+
+});

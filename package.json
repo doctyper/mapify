@@ -1,0 +1,24 @@
+{
+      "name": "mapify",
+      "version": "0.0.0",
+      "description": "Alias mappings for browserify ",
+      "main": "index.js",
+      "scripts": {
+            "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "repository": {
+            "type": "git",
+            "url": "git://github.com/lusini/mapify.git"
+      },
+      "keywords": [
+            "browserify-plugin",
+            "alias",
+            "mapping",
+            "expose"
+      ],
+      "author": "Mathias Schreck <schreck.mathias@gmail.com>",
+      "license": "WTFPL",
+      "bugs": {
+            "url": "https://github.com/lusini/mapify/issues"
+      }
+}

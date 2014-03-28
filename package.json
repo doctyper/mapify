@@ -4,7 +4,7 @@
     "description": "Alias mappings for browserify ",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "mocha"
     },
     "repository": {
         "type": "git",
@@ -21,7 +21,10 @@
     },
     "devDependencies": {
         "mocha": "1.18.2",
-        "referee": "1.0.2"
+        "referee": "1.0.2",
+        "referee-sinon": "1.0.1",
+        "sinon": "1.9.0",
+        "proxyquire": "0.5.3"
     },
     "peerDependencies": {
         "browserify": ">=3.28.0 <=4.x"

@@ -22,21 +22,19 @@ function remapFile(browserify, alias, file) {
     browserify.require(path.resolve(file),  {expose: exposeWithoutExtension});
 }
 
-function remapFiles(browserify, alias, error, files) {
-    if (error) {
-        return browserify.emit('error', error);
-    }
-
+function remapFiles(browserify, alias, files) {
     files
         .filter(matchesAlias.bind(null, alias.cwd))
         .forEach(remapFile.bind(null, browserify, alias));
 }
 
-module.exports = function (browserify, options) {
+module.exports = function (browserify, options, done) {
     var aliases = Array.isArray(options) ? options : [ options ];
 
     aliases.forEach(function (alias) {
-        var globPattern = path.join(alias.cwd, alias.pattern);
-        glob(globPattern, remapFiles.bind(null, browserify, alias));
+        var globPattern = path.join(alias.cwd, alias.pattern),
+            files = glob.sync(globPattern);
+
+        remapFiles(browserify, alias, files);
     });
 };

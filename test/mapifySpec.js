@@ -13,7 +13,7 @@ describe('mapify', function () {
     var mapify, browserify, glob;
 
     before(function () {
-        glob = sinon.stub();
+        glob = { sync: sinon.stub() };
         mapify = proxyquire('../index', {glob: glob});
     });
 
@@ -23,7 +23,7 @@ describe('mapify', function () {
         browserify = {
             require: sinon.stub()
         };
-        glob.yields(null, [
+        glob.sync.returns([
             'foo/bar/baz.js',
             'foo/bar/qux/quux.js',
             'bar/foo/quux.js'

@@ -29,7 +29,7 @@ function remapFiles(browserify, pathSeparator, alias, files) {
         .forEach(remapFile.bind(null, browserify, pathSeparator, alias));
 }
 
-module.exports = function (browserify, options, done) {
+module.exports = function (browserify, options) {
     var pathSeparator = options.pathSeparator || path.sep;
     var aliases = Array.isArray(options) ? options : options.entries || [ options ];
 

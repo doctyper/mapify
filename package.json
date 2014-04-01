@@ -4,7 +4,7 @@
     "description": "Alias mappings for browserify ",
     "main": "index.js",
     "scripts": {
-        "test": "mocha"
+        "test": "eslint . && mocha"
     },
     "repository": {
         "type": "git",
@@ -24,7 +24,8 @@
         "referee": "1.0.2",
         "referee-sinon": "1.0.1",
         "sinon": "1.9.0",
-        "proxyquire": "0.5.3"
+        "proxyquire": "0.5.3",
+        "eslint": "0.4.5"
     },
     "peerDependencies": {
         "browserify": ">=3.28.0 <=4.x"

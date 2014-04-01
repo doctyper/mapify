@@ -35,12 +35,33 @@ describe('mapify', function () {
     });
 
     it('should expose the configured aliases', function () {
-        mapify(browserify, {cwd: 'foo/bar', pattern: '**/*.js', expose: 'exposed'});
+        mapify(browserify, { cwd: 'foo/bar', pattern: '**/*.js', expose: 'exposed'});
 
         expect(browserify.require).toHaveBeenCalledTwice();
         expect(path.resolve).toHaveBeenCalledTwice();
+        expect(browserify.require).toHaveBeenCalledWithExactly('foo/bar/baz.js', {expose: path.join('exposed', 'baz')});
+        expect(browserify.require).toHaveBeenCalledWithExactly('foo/bar/qux/quux.js', {expose: path.join('exposed', 'qux', 'quux')});
+    });
+
+    it('should override the path separator', function() {
+        mapify(browserify, {
+            pathSeparator: '/', 
+            entries: [ { cwd: 'foo/bar', pattern: '**/*.js', expose: 'exposed'} ]
+        });
+
         expect(browserify.require).toHaveBeenCalledWithExactly('foo/bar/baz.js', {expose: 'exposed/baz'});
         expect(browserify.require).toHaveBeenCalledWithExactly('foo/bar/qux/quux.js', {expose: 'exposed/qux/quux'});
+
+    });
+
+    it('should override the path separator', function() {
+        mapify(browserify, {
+            pathSeparator: '\\', 
+            entries: [ { cwd: 'foo/bar', pattern: '**/*.js', expose: 'exposed'} ]
+        });
+
+        expect(browserify.require).toHaveBeenCalledWithExactly('foo/bar/baz.js', {expose: 'exposed\\baz'});
+        expect(browserify.require).toHaveBeenCalledWithExactly('foo/bar/qux/quux.js', {expose: 'exposed\\qux\\quux'});
     });
 
 });

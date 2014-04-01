@@ -17,11 +17,30 @@ b.plugin('mapify', {
 b.bundle();
 
 // this maps e.g. foo/bar/app/index.js to app/index
+```
 
+The aliases are built with `path.join` so they will use the system's path separator. You can also override the path separator (e.g. you're on Windows but prefer forward slashes).
+
+```js
+var browserify = require('browserify'),
+    b = browserify(__dirname);
+
+b.plugin('mapify', {
+    pathSeparator: '/', 
+    entries: [{
+      cwd: 'foo/bar/app',
+      pattern: '**/*.js',
+      expose: 'app'
+    }]
+});
+
+b.bundle();
+
+// this maps e.g. foo\\bar\\app\\index.js to app/index
 ```
 
 ### options
-Array or object wich defines an alias mapping.
+An array or object wich defines an alias mapping.
 
 #### `cwd`
 Entry point for the alias.
@@ -31,3 +50,9 @@ Glob pattern.
 
 #### `expose`
 Name of the alias.
+
+#### `pathSeparator`
+String to override system's path separator.
+
+#### `entries`
+Array of alias mappings.

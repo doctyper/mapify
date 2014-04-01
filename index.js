@@ -14,27 +14,29 @@ function stripFolder(folder, file) {
     return file.substr(folder.length);
 }
 
-function remapFile(browserify, alias, file) {
+function remapFile(browserify, pathSeparator, alias, file) {
     var relativeFile = stripFolder(alias.cwd, file),
         expose = path.join(alias.expose, relativeFile),
-        exposeWithoutExtension = stripFileExtension(expose);
+        exposeWithoutExtension = stripFileExtension(expose),
+        exposeWithSeparator = exposeWithoutExtension.replace(new RegExp('\\' + path.sep, 'g'), pathSeparator);
 
-    browserify.require(path.resolve(file),  {expose: exposeWithoutExtension});
+    browserify.require(path.resolve(file),  {expose: exposeWithSeparator});
 }
 
-function remapFiles(browserify, alias, files) {
+function remapFiles(browserify, pathSeparator, alias, files) {
     files
         .filter(matchesAlias.bind(null, alias.cwd))
-        .forEach(remapFile.bind(null, browserify, alias));
+        .forEach(remapFile.bind(null, browserify, pathSeparator, alias));
 }
 
 module.exports = function (browserify, options, done) {
-    var aliases = Array.isArray(options) ? options : [ options ];
+    var pathSeparator = options.pathSeparator || path.sep;
+    var aliases = Array.isArray(options) ? options : options.entries || [ options ];
 
     aliases.forEach(function (alias) {
         var globPattern = path.join(alias.cwd, alias.pattern),
             files = glob.sync(globPattern);
 
-        remapFiles(browserify, alias, files);
+        remapFiles(browserify, pathSeparator, alias, files);
     });
 };

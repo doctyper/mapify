@@ -26,7 +26,7 @@ var browserify = require('browserify'),
     b = browserify(__dirname);
 
 b.plugin('mapify', {
-    pathSeparator: '/', 
+    pathSeparator: '/',
     entries: [{
       cwd: 'foo/bar/app',
       pattern: '**/*.js',
@@ -40,7 +40,7 @@ b.bundle();
 ```
 
 ### options
-An array or object wich defines an alias mapping.
+An array or object which defines an alias mapping.
 
 #### `cwd`
 Entry point for the alias.

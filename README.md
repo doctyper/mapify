@@ -26,7 +26,7 @@ var browserify = require('browserify'),
     b = browserify(__dirname);
 
 b.plugin('mapify', {
-    pathseparator: '/', 
+    pathSeparator: '/', 
     entries: [{
       cwd: 'foo/bar/app',
       pattern: '**/*.js',
@@ -51,7 +51,7 @@ Glob pattern.
 #### `expose`
 Name of the alias.
 
-#### `pathseparator`
+#### `pathSeparator`
 String to override system's path separator.
 
 #### `entries`

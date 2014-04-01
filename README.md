@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/lusini/mapify.png?branch=master)](https://travis-ci.org/lusini/mapify)
+[![Dependencies](https://david-dm.org/lusini/mapify.png)](https://david-dm.org/lusini/mapify)
+[![NPM version](https://badge.fury.io/js/mapify.png)](http://badge.fury.io/js/mapify)
+
 mapify
 ======
 

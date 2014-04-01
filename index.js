@@ -30,8 +30,8 @@ function remapFiles(browserify, pathSeparator, alias, files) {
 }
 
 module.exports = function (browserify, options) {
-    var pathSeparator = options.pathSeparator || path.sep;
-    var aliases = Array.isArray(options) ? options : options.entries || [ options ];
+    var pathSeparator = options.pathSeparator || path.sep,
+        aliases = Array.isArray(options) ? options : options.entries || [ options ];
 
     aliases.forEach(function (alias) {
         var globPattern = path.join(alias.cwd, alias.pattern),

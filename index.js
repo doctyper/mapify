@@ -16,11 +16,14 @@ function stripFolder(folder, file) {
 
 function remapFile(browserify, pathSeparator, alias, file) {
     var relativeFile = stripFolder(alias.cwd, file),
+        regexp = new RegExp('\\' + path.sep, 'g'),
         expose = path.join(alias.expose, relativeFile),
         exposeWithoutExtension = stripFileExtension(expose),
-        exposeWithSeparator = exposeWithoutExtension.replace(new RegExp('\\' + path.sep, 'g'), pathSeparator);
+        exposeWithSeparator = exposeWithoutExtension.replace(regexp, pathSeparator),
+        exposeWithSeparatorAndExtension = expose.replace(regexp, pathSeparator);
 
     browserify.require(path.resolve(file),  {expose: exposeWithSeparator});
+    browserify.require(path.resolve(file),  {expose: exposeWithSeparatorAndExtension});
 }
 
 function remapFiles(browserify, pathSeparator, alias, files) {
